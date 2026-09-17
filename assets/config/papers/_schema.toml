@@ -1,11 +1,11 @@
 # Used for creating papers info cards
 
-# The website will automatically use the image stored under assets/media/papers for the paper's highlight figure.
+# The website will automatically use the image stored under assets/media/papers/ for the paper's highlight figure.
 # The image file should have the same name as the toml config file.
 # Example: pmma_co_hfo2.jpg <==> pmma_co_hfo2.toml
 # The image can be a jpg or png. No aspect ratio constraints, wide images are preferred over tall images.
 
-# The website will automatically link to the file uploaded under assets/files/papers.
+# The website will automatically link to the file uploaded under assets/files/papers/.
 # The file should have the same name as the toml config file.
 # Example: pmma_co_hfo2.pdf <==> pmma_co_hfo2.toml
 # The file must be a pdf.
@@ -19,3 +19,4 @@ date = 2000-01-01 # Format: YYYY-MM-DD
 [[authors]]
 first = ""
 last = ""
+card = "" # Optional for author card linking, should be the name of the toml file in assets/config/members/

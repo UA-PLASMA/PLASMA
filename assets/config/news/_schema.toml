@@ -1,11 +1,11 @@
 # Used to generate the news cards.
 
-# The website will automatically use the media stored under assets/media/news for the news article's highlight media.
+# The website will automatically use the media stored under assets/media/news/ for the news article's highlight media.
 # The media file should have the same name as the toml config file.
 # Example: asd_2026.jpg <==> asd_2026.toml
 # The media can be a jpg, png, gif, or mp4. Aspect ratio should be 1:1 (square). For mp4, the audio will not play.
 
 title = ""
 body = """
-"""
+""" # Supports markdown
 date = 2000-01-01 # Format: YYYY-MM-DD

@@ -1,0 +1,16 @@
+title = ""
+bio = """
+PhD student focused on the intersection of sustainability and cryogenic technologies.
+Also works on selective deposition and etching topics.
+"""
+position = "graduate"
+orcid = "0009-0007-6740-0059"
+
+[name]
+first = "Enzo"
+last = "Novoselic"
+
+[highest_degree]
+degree = "M.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2026
