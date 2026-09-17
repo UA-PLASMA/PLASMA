@@ -1,0 +1,23 @@
+# Used to generate the member's info card.
+
+# The website will automatically use the image stored under assets/media/members for the member's profile picture.
+# The image file should have the same name as the toml config file.
+# Example: enzo_novoselic.jpg <==> enzo_novoselic.toml
+# The image can be a jpg or png. Aspect ratio should be 1:1.5 (width:height, e.g. 400px:600px)
+
+title = ""
+bio = """
+"""
+position = "" # One of "PI", "scientist", "postdoc", "graduate", "undergraduate", "alumni"
+
+[name]
+first = ""
+last = ""
+
+# The highest degree field is used for two purposes:
+# A. An active member's highest degree.
+# B. The degree an alumni got whilst in the group.
+[highest_degree]
+degree = ""
+from = ""
+year = 0
