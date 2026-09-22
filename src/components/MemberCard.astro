@@ -69,7 +69,7 @@ const graduateProgram =
     {
       (member.email || member.linkedin || member.orcid) && (
         <div class="member-card__social-links">
-          {member.email && (
+          {member.email && !member.alumni && (
             <button
               class="inline-link member-card__social-icon"
               type="button"
