@@ -1,0 +1,13 @@
+title = ""
+bio = """"""
+position = "masters"
+join_year = 2026
+
+[name]
+first = "Dung"
+last = "Pham"
+
+[highest_degree]
+degree = "B.S."
+from = ""
+year = 2026

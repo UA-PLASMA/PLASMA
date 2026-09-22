@@ -1,0 +1,14 @@
+title = ""
+bio = ""
+position = "phd"
+join_year = 2026
+orcid = ""
+
+[name]
+first = "Simon"
+last = "Roemig"
+
+[highest_degree]
+degree = "B.S. Materials Science and Engineering"
+from = "UWisconsin-Madison"
+year = 2023

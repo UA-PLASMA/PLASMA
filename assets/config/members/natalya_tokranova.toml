@@ -1,0 +1,15 @@
+title = "Dr"
+bio = ""
+position = "scientist"
+join_year = 0
+orcid = "0009-0005-0778-4615"
+linkedin = "https://www.linkedin.com/in/natalya-tokranova-b967499/"
+
+[name]
+first = "Natalya"
+last = "Tokranova"
+
+[highest_degree]
+degree = "Ph.D. Semiconductor Physics"
+from = "Ioffe Institute"
+year = 0

@@ -3,8 +3,11 @@ bio = """
 PhD student focused on the intersection of sustainability and cryogenic technologies.
 Also works on selective deposition and etching topics.
 """
-position = "graduate"
+position = "phd"
+join_year = 2024
 orcid = "0009-0007-6740-0059"
+email = "ejournetnovoselic@albany.edu"
+linkedin = "https://www.linkedin.com/in/enzo-novoselic"
 
 [name]
 first = "Enzo"

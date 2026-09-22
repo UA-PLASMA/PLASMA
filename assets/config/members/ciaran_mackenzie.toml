@@ -1,0 +1,15 @@
+title = ""
+bio = ""
+position = "phd"
+join_year = 2023
+orcid = ""
+linkedin = "https://www.linkedin.com/in/ciaran-mackenzie-388510234/"
+
+[name]
+first = "Ciaran"
+last = "MacKenzie"
+
+[highest_degree]
+degree = "B.S. Ceramic Sciences and Engineering"
+from = "Alfred University"
+year = 2023

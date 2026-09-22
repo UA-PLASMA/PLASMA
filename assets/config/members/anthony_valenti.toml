@@ -1,0 +1,15 @@
+title = "Dr"
+bio = ""
+position = "postdoc"
+join_year = 2026
+orcid = "0009-0000-5488-3986"
+linkedin = "https://www.linkedin.com/in/anthony-valenti-941b172a2/"
+
+[name]
+first = "Anthony"
+last = "Valenti"
+
+[highest_degree]
+degree = "Ph.D. Nanoscale Science"
+from = "SUNY Albany"
+year = 2026

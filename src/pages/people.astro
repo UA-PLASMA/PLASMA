@@ -3,13 +3,19 @@ import MemberCard from "../components/MemberCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { members, type MemberPosition } from "../lib/content";
 
-const groups: Array<{ position: MemberPosition; heading: string }> = [
-  { position: "PI", heading: "Principal investigator" },
-  { position: "scientist", heading: "Scientists" },
-  { position: "postdoc", heading: "Postdoctoral researchers" },
-  { position: "graduate", heading: "Graduate students" },
-  { position: "undergraduate", heading: "Undergraduate students" },
-  { position: "alumni", heading: "Alumni" },
+const groups: Array<{
+  key: string;
+  positions?: MemberPosition[];
+  alumni?: boolean;
+  heading: string;
+  profile: boolean;
+}> = [
+  { key: "pi", positions: ["PI"], heading: "Principal Investigator", profile: true },
+  { key: "scientist", positions: ["scientist"], heading: "Scientists", profile: true },
+  { key: "postdoc", positions: ["postdoc"], heading: "Postdoctoral Fellows", profile: true },
+  { key: "graduate", positions: ["phd", "masters"], heading: "Graduate students", profile: false },
+  { key: "undergraduate", positions: ["undergraduate"], heading: "Undergraduate students", profile: false },
+  { key: "alumni", alumni: true, heading: "Alumni", profile: false },
 ];
 ---
 
@@ -26,14 +32,20 @@ const groups: Array<{ position: MemberPosition; heading: string }> = [
     <div class="container">
       {
         groups.map((group) => {
-          const groupMembers = members.filter((member) => member.position === group.position);
+          const groupMembers = members.filter((member) =>
+            group.alumni
+              ? member.alumni
+              : !member.alumni && (group.positions?.includes(member.position) ?? false)
+          );
 
           return (
             groupMembers.length > 0 && (
-              <section class="people-group" aria-labelledby={`people-${group.position}`}>
-                <h2 id={`people-${group.position}`}>{group.heading}</h2>
-                <div class="people-grid">
-                  {groupMembers.map((member) => <MemberCard member={member} />)}
+              <section class="people-group" aria-labelledby={`people-${group.key}`}>
+                <h2 id={`people-${group.key}`}>{group.heading}</h2>
+                <div class:list={["people-grid", group.profile && "people-grid--profiles"]}>
+                  {groupMembers.map((member) => (
+                    <MemberCard member={member} profile={group.profile} />
+                  ))}
                 </div>
               </section>
             )

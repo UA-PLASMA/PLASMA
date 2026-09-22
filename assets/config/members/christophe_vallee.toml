@@ -1,0 +1,15 @@
+title = "Dr"
+bio = ""
+position = "PI"
+join_year = 0
+orcid = "0000-0002-9324-2345"
+linkedin = "https://www.linkedin.com/in/christophe-vallee-4a346126/"
+
+[name]
+first = "Christophe"
+last = "Valleé"
+
+[highest_degree]
+degree = "Ph.D."
+from = "Nantes Université"
+year = 0

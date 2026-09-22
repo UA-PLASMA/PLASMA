@@ -1,0 +1,15 @@
+title = ""
+bio = ""
+position = "phd"
+join_year = 2023
+orcid = ""
+linkedin = "https://www.linkedin.com/in/shivan-antar-064497134/"
+
+[name]
+first = "Shivan"
+last = "Antar"
+
+[highest_degree]
+degree = "B.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2023

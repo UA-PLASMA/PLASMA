@@ -4,14 +4,22 @@ import { assetUrl } from "../lib/urls";
 
 interface Props {
   member: Member;
+  profile?: boolean;
 }
 
-const { member } = Astro.props;
+const { member, profile = false } = Astro.props;
 const initials = `${member.name.first.charAt(0)}${member.name.last.charAt(0)}`.toUpperCase();
-const showBio = ["PI", "scientist", "postdoc"].includes(member.position) && Boolean(member.bio.trim());
+const showBio =
+  profile && ["PI", "scientist", "postdoc"].includes(member.position) && Boolean(member.bio.trim());
+const graduateProgram =
+  !member.alumni && (member.position === "phd" || member.position === "masters")
+    ? member.position === "phd"
+      ? "PhD"
+      : "Master's"
+    : undefined;
 ---
 
-<article class="member-card">
+<article class:list={["member-card", profile && "member-card--profile"]}>
   <div class="member-card__portrait">
     {
       member.image && (
@@ -26,29 +34,69 @@ const showBio = ["PI", "scientist", "postdoc"].includes(member.position) && Bool
     <span class="member-card__placeholder" aria-hidden="true">{initials}</span>
   </div>
   <div class="member-card__content">
-    <p class="eyebrow">{member.position === "PI" ? "Principal investigator" : member.position}</p>
-    <h3>{member.name.first} {member.name.last}</h3>
-    {member.title && <p class="member-card__title">{member.title}</p>}
+    <h3>
+      {member.title && <span class="member-card__title">{member.title} </span>}
+      {member.name.first} {member.name.last}
+    </h3>
     {showBio && <p>{member.bio}</p>}
     {
-      member.highestDegree.degree && (
-        <p class="member-card__degree">
-          {member.highestDegree.degree}
-          {member.highestDegree.from && ` · ${member.highestDegree.from}`}
-          {member.highestDegree.year > 0 && `, ${member.highestDegree.year}`}
+      graduateProgram && (
+        <p class="member-card__program">
+          {graduateProgram} student{member.joinYear > 0 && ` since ${member.joinYear}`}
         </p>
       )
     }
     {
-      member.orcid && (
-        <a
-          class="inline-link"
-          href={`https://orcid.org/${member.orcid}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          ORCID
-        </a>
+      member.alumni && (member.position === "scientist" || member.position === "postdoc") ? (
+        <p class="member-card__degree">
+          {member.position === "scientist" ? "Scientist" : "Postdoctoral Fellow"}
+        </p>
+      ) : member.highestDegree.degree ? (
+        <p class="member-card__degree">
+          <span class="member-card__degree-name">{member.highestDegree.degree}</span>
+          {
+            (member.highestDegree.from || member.highestDegree.year > 0) && (
+              <span class="member-card__degree-details">
+                {member.highestDegree.from}
+                {member.highestDegree.from && member.highestDegree.year > 0 && ", "}
+                {member.highestDegree.year > 0 && member.highestDegree.year}
+              </span>
+            )
+          }
+        </p>
+      ) : null
+    }
+    {
+      (member.email || member.linkedin || member.orcid) && (
+        <div class="member-card__social-links">
+          {member.email && (
+            <button
+              class="inline-link member-card__social-icon"
+              type="button"
+              data-copy-email={member.email}
+              title={member.email}
+              aria-label={`Copy ${member.name.first} ${member.name.last}'s email address`}
+            >
+              <img src={assetUrl("/media/misc/email-icon.svg")} alt="" aria-hidden="true" />
+            </button>
+          )}
+          {member.linkedin && (
+            <a
+              class="inline-link member-card__social-icon"
+              href={member.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${member.name.first} ${member.name.last} on LinkedIn`}
+            >
+              <img src={assetUrl("/media/misc/LinkedIn_icon.svg")} alt="" aria-hidden="true" />
+            </a>
+          )}
+          {member.orcid && (
+            <a class="inline-link" href={`https://orcid.org/${member.orcid}`} target="_blank" rel="noreferrer">
+              ORCID
+            </a>
+          )}
+        </div>
       )
     }
   </div>

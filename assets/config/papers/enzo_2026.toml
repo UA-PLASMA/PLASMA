@@ -4,14 +4,10 @@ journal = "JVST-A"
 date = 2026-09-01
 
 [[authors]]
-first = "Enzo"
-last = "Novoselic"
 card = "enzo_novoselic"
 
 [[authors]]
-first = "Natalya"
-last = "Tokranova"
+card = "natalya_tokranova"
 
 [[authors]]
-first = "Christophe"
-last = "Vallee"
+card = "christophe_vallee"

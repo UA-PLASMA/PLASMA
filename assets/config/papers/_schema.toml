@@ -14,9 +14,10 @@ title = ""
 doi = ""
 journal = ""
 date = 2000-01-01 # Format: YYYY-MM-DD
+et_al = false # Append "et al." after the listed authors
 
 # Repeat this structure for each author, in authorship order.
 [[authors]]
-first = ""
-last = ""
-card = "" # Optional for author card linking, should be the name of the toml file in assets/config/members/
+card = "" # Optional member TOML filename from assets/config/members/; when set, first and last are pulled from this member.
+first = "" # Required only when card is empty.
+last = "" # Required only when card is empty.

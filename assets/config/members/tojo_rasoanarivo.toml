@@ -1,0 +1,15 @@
+title = "Dr"
+bio = ""
+position = "postdoc"
+join_year = 2026
+orcid = "0009-0001-3010-9379"
+linkedin = "https://www.linkedin.com/in/tojo-rasoanarivo-8840a5138/"
+
+[name]
+first = "Tojo"
+last = "Rasoanarivo"
+
+[highest_degree]
+degree = "Ph.D. Fundamental Physics - Nanotechnologies"
+from = "Nantes Université"
+year = 2026

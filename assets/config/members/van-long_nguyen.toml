@@ -1,0 +1,12 @@
+title = "Dr"
+bio = ""
+position = "postdoc"
+alumni = true
+join_year = 2023
+leave_year = 2026
+orcid = "0000-0002-5665-1019"
+linkedin = "https://www.linkedin.com/in/van-long-nguyen-18307a1ab/"
+
+[name]
+first = "Van Long"
+last = "Nguyen"

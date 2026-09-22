@@ -18,5 +18,8 @@
     "@astrojs/check": "^0.9.10",
     "@types/node": "^26.6.2",
     "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

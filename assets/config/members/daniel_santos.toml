@@ -1,0 +1,15 @@
+title = ""
+bio = ""
+position = "phd"
+join_year = 2021
+orcid = ""
+linkedin = "https://www.linkedin.com/in/danielssantos/"
+
+[name]
+first = "Daniel"
+last = "Santos"
+
+[highest_degree]
+degree = "B.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2021

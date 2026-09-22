@@ -48,6 +48,7 @@ const pageTitle = title
     <main id="main-content">
       <slot />
     </main>
+    <div class="copy-toast" role="status" aria-live="polite" data-copy-toast hidden></div>
     <footer class="site-footer">
       <div class="container site-footer__inner">
         <div>
@@ -59,3 +60,31 @@ const pageTitle = title
     </footer>
   </body>
 </html>
+
+<script>
+  const toast = document.querySelector<HTMLElement>("[data-copy-toast]");
+  let toastTimeout: number | undefined;
+
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-email]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const email = button.dataset.copyEmail;
+
+      if (!email || !toast) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(email);
+        toast.textContent = "Email copied to clipboard.";
+      } catch {
+        toast.textContent = `Could not copy email. Copy it manually: ${email}`;
+      }
+
+      toast.hidden = false;
+      window.clearTimeout(toastTimeout);
+      toastTimeout = window.setTimeout(() => {
+        toast.hidden = true;
+      }, 2500);
+    });
+  });
+</script>

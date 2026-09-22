@@ -3,21 +3,26 @@
 # The website will automatically use the image stored under assets/media/members/ for the member's profile picture.
 # The image file should have the same name as the toml config file.
 # Example: enzo_novoselic.jpg <==> enzo_novoselic.toml
-# The image can be a jpg or png. Aspect ratio should be 1:1.5 (width:height, e.g. 400px:600px)
+# The image can be a jpg or png. Aspect ratio should be 4:3 (height:width, e.g. 600px:450px)
 
 title = ""
 bio = """
 """ # Supports markdown
-position = "" # One of "PI", "scientist", "postdoc", "graduate", "undergraduate", "alumni"
+position = "" # One of "PI", "scientist", "postdoc", "phd", "masters", "undergraduate"
+alumni = false # Set to true when the member has left the group
+join_year = 0 # The year the member joined the lab; use 0 when unknown
+leave_year = 0 # Required when alumni = true
 orcid = ""
+email = ""
+linkedin = "" # Full LinkedIn profile URL
 
 [name]
 first = ""
 last = ""
 
-# The highest degree field is used for two purposes:
-# A. An active member's highest degree.
-# B. The degree an alumni got whilst in the group.
+# For active members, this is their highest degree.
+# For alumni, this is the degree and the year they earned it.
+# Undergraduate members and scientist/postdoc alumni can omit this table.
 [highest_degree]
 degree = ""
 from = ""

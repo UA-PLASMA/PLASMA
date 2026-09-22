@@ -26,6 +26,7 @@ const { papers } = Astro.props;
           <h2>{paper.title}</h2>
           <p class="paper-list__authors">
             {paper.authors.map((author) => `${author.first} ${author.last}`).join(", ")}
+            {paper.etAl && paper.authors.length > 0 && ", et al."}
           </p>
           <p class="paper-list__links">
             <a class="inline-link" href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">

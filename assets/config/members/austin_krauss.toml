@@ -1,0 +1,14 @@
+title = ""
+bio = """"""
+position = "phd"
+join_year = 2022
+orcid = ""
+
+[name]
+first = "Austin"
+last = "Krauss"
+
+[highest_degree]
+degree = "B.S. Nanoscale Science"
+from = "SUNY Polytechnic Institute"
+year = 2022

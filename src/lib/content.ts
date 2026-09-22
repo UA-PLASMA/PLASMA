@@ -10,9 +10,9 @@ const memberPositions = [
   "PI",
   "scientist",
   "postdoc",
-  "graduate",
+  "phd",
+  "masters",
   "undergraduate",
-  "alumni",
 ] as const;
 
 export type MemberPosition = (typeof memberPositions)[number];
@@ -22,7 +22,12 @@ export interface Member {
   title: string;
   bio: string;
   position: MemberPosition;
+  alumni: boolean;
+  joinYear: number;
+  leaveYear: number;
   orcid?: string;
+  email?: string;
+  linkedin?: string;
   name: {
     first: string;
     last: string;
@@ -47,6 +52,7 @@ export interface Paper {
   doi: string;
   journal: string;
   date: string;
+  etAl: boolean;
   authors: PaperAuthor[];
   highlightImage?: string;
   pdf?: string;
@@ -116,6 +122,39 @@ function getNumber(source: TomlRecord, key: string, sourceName: string): number 
   }
 
   return value;
+}
+
+function getOptionalNumber(source: TomlRecord, key: string, sourceName: string): number | undefined {
+  const value = source[key];
+
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (typeof value !== "number") {
+    throw new Error(`Expected "${key}" to be a number in ${sourceName}.`);
+  }
+
+  return value;
+}
+
+function getBoolean(
+  source: TomlRecord,
+  key: string,
+  sourceName: string,
+  required = true,
+): boolean | undefined {
+  const value = source[key];
+
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  if (!required && value === undefined) {
+    return undefined;
+  }
+
+  throw new Error(`Expected "${key}" to be a boolean in ${sourceName}.`);
 }
 
 function getDate(source: TomlRecord, key: string, sourceName: string): string {
@@ -191,34 +230,61 @@ function loadMembers(): Member[] {
         );
       }
 
+      const alumni = getBoolean(value, "alumni", sourceName, false) ?? false;
+      const leaveYear = getOptionalNumber(value, "leave_year", sourceName);
+
+      if (alumni && leaveYear === undefined) {
+        throw new Error(`Expected "leave_year" in ${sourceName} when "alumni" is true.`);
+      }
+
+      if (alumni && position === "PI") {
+        throw new Error(`A PI cannot be marked as an alumnus in ${sourceName}.`);
+      }
+
       const name = getRecord(value, "name", sourceName);
-      const highestDegree = getRecord(value, "highest_degree", sourceName);
+      const skipHighestDegree = alumni && (position === "scientist" || position === "postdoc");
+      const optionalUndergraduateDegree =
+        position === "undergraduate" && value.highest_degree === undefined;
+      const highestDegree = skipHighestDegree || optionalUndergraduateDegree
+        ? { degree: "", from: "", year: 0 }
+        : (() => {
+            const degree = getRecord(value, "highest_degree", sourceName);
+
+            return {
+              degree: getString(degree, "degree", sourceName) ?? "",
+              from: getString(degree, "from", sourceName) ?? "",
+              year: getNumber(degree, "year", sourceName),
+            };
+          })();
 
       return {
         slug,
         title: getString(value, "title", sourceName) ?? "",
         bio: getString(value, "bio", sourceName) ?? "",
         position: position as MemberPosition,
+        alumni,
+        joinYear: getNumber(value, "join_year", sourceName),
+        leaveYear: leaveYear ?? 0,
         orcid: getString(value, "orcid", sourceName, false),
+        email: getString(value, "email", sourceName, false),
+        linkedin: getString(value, "linkedin", sourceName, false),
         name: {
           first: getString(name, "first", sourceName) ?? "",
           last: getString(name, "last", sourceName) ?? "",
         },
-        highestDegree: {
-          degree: getString(highestDegree, "degree", sourceName) ?? "",
-          from: getString(highestDegree, "from", sourceName) ?? "",
-          year: getNumber(highestDegree, "year", sourceName),
-        },
+        highestDegree,
         image: findAsset("media/members", slug, ["jpg", "png"]),
       };
     })
     .sort((first, second) => {
       const positionOrder = memberPositions.indexOf(first.position) - memberPositions.indexOf(second.position);
-      return positionOrder || first.name.last.localeCompare(second.name.last);
+      const joinYearOrder =
+        (first.joinYear || Number.MAX_SAFE_INTEGER) - (second.joinYear || Number.MAX_SAFE_INTEGER);
+      return positionOrder || joinYearOrder || first.name.last.localeCompare(second.name.last);
     });
 }
 
-function loadPapers(): Paper[] {
+function loadPapers(memberList: readonly Member[]): Paper[] {
   return getTomlEntries("papers")
     .map(({ slug, sourceName, value }) => {
       const authors = value.authors;
@@ -233,15 +299,32 @@ function loadPapers(): Paper[] {
         doi: getString(value, "doi", sourceName) ?? "",
         journal: getString(value, "journal", sourceName) ?? "",
         date: getDate(value, "date", sourceName),
+        etAl: getBoolean(value, "et_al", sourceName, false) ?? false,
         authors: authors.map((author, index) => {
           if (!isRecord(author)) {
             throw new Error(`Expected author ${index + 1} to be a table in ${sourceName}.`);
           }
 
+          const card = getString(author, "card", sourceName, false);
+
+          if (card) {
+            const member = memberList.find((entry) => entry.slug === card);
+
+            if (!member) {
+              throw new Error(`Unknown author card "${card}" in ${sourceName}.`);
+            }
+
+            return {
+              first: member.name.first,
+              last: member.name.last,
+              card,
+            };
+          }
+
           return {
             first: getString(author, "first", sourceName) ?? "",
             last: getString(author, "last", sourceName) ?? "",
-            card: getString(author, "card", sourceName, false),
+            card,
           };
         }),
         highlightImage: findAsset("media/papers", slug, ["jpg", "png"]),
@@ -291,6 +374,6 @@ function loadAnnouncements(): Announcement[] {
 }
 
 export const members = loadMembers();
-export const papers = loadPapers();
+export const papers = loadPapers(members);
 export const news = loadNews();
 export const announcements = loadAnnouncements();
