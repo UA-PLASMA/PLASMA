@@ -1,0 +1,33 @@
+---
+import type { NewsArticle } from "../lib/content";
+import { formatDate, renderMarkdown } from "../lib/format";
+import { assetUrl } from "../lib/urls";
+
+interface Props {
+  article: NewsArticle;
+}
+
+const { article } = Astro.props;
+const isVideo = article.media?.endsWith(".mp4");
+---
+
+<article class="news-card">
+  <div class="news-card__media">
+    {
+      article.media ? (
+        isVideo ? (
+          <video src={assetUrl(article.media)} autoplay loop muted playsinline aria-label="" />
+        ) : (
+          <img src={assetUrl(article.media)} alt="" loading="lazy" />
+        )
+      ) : (
+        <span class="news-card__placeholder" aria-hidden="true">PLASMA</span>
+      )
+    }
+  </div>
+  <div class="news-card__content">
+    <p class="eyebrow">{formatDate(article.date)}</p>
+    <h3>{article.title}</h3>
+    <div class="rich-text" set:html={renderMarkdown(article.body)} />
+  </div>
+</article>

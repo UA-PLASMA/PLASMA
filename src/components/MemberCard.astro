@@ -1,0 +1,63 @@
+---
+import type { Member } from "../lib/content";
+import { assetUrl } from "../lib/urls";
+
+interface Props {
+  member: Member;
+}
+
+const { member } = Astro.props;
+const initials = `${member.name.first.charAt(0)}${member.name.last.charAt(0)}`.toUpperCase();
+const showBio = ["PI", "scientist", "postdoc"].includes(member.position) && Boolean(member.bio.trim());
+---
+
+<article class="member-card">
+  <div class="member-card__portrait">
+    {
+      member.image && (
+        <img
+          src={assetUrl(member.image)}
+          alt={`Portrait of ${member.name.first} ${member.name.last}`}
+          loading="lazy"
+          data-member-image
+        />
+      )
+    }
+    <span class="member-card__placeholder" aria-hidden="true">{initials}</span>
+  </div>
+  <div class="member-card__content">
+    <p class="eyebrow">{member.position === "PI" ? "Principal investigator" : member.position}</p>
+    <h3>{member.name.first} {member.name.last}</h3>
+    {member.title && <p class="member-card__title">{member.title}</p>}
+    {showBio && <p>{member.bio}</p>}
+    {
+      member.highestDegree.degree && (
+        <p class="member-card__degree">
+          {member.highestDegree.degree}
+          {member.highestDegree.from && ` · ${member.highestDegree.from}`}
+          {member.highestDegree.year > 0 && `, ${member.highestDegree.year}`}
+        </p>
+      )
+    }
+    {
+      member.orcid && (
+        <a
+          class="inline-link"
+          href={`https://orcid.org/${member.orcid}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          ORCID
+        </a>
+      )
+    }
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLImageElement>("[data-member-image]").forEach((image) => {
+    image.addEventListener("error", () => {
+      image.classList.add("member-card__image--missing");
+    });
+  });
+</script>

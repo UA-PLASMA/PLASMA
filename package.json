@@ -1,0 +1,22 @@
+{
+  "name": "plasma-lab-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "check": "astro check",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.3.3",
+    "marked": "^18.0.14",
+    "smol-toml": "^1.8.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.2",
+    "typescript": "^5.9.3"
+  }
+}

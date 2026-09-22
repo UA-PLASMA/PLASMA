@@ -1,0 +1,61 @@
+---
+import { routeUrl } from "../lib/urls";
+import ThemeToggle from "./ThemeToggle.astro";
+
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const navigation = [
+  { href: "/", label: "Home" },
+  { href: "/research", label: "Research" },
+  { href: "/people", label: "People" },
+  { href: "/publications", label: "Publications" },
+  { href: "/news", label: "News" },
+  { href: "/contact", label: "Contact" },
+];
+
+function isCurrent(href: string): boolean {
+  return href === "/" ? currentPath === "/" : currentPath === href;
+}
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="wordmark" href={routeUrl()} aria-label="PLASMA home">
+      <span class="wordmark__name">PLASMA</span>
+      <span class="wordmark__subtitle">UAlbany research group</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <ul>
+        {
+          navigation.map((item) => (
+            <li>
+              <a href={routeUrl(item.href)} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <ThemeToggle />
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation">Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <ul>
+            {
+              navigation.map((item) => (
+                <li>
+                  <a href={routeUrl(item.href)} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

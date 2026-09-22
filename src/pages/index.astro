@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsCard from "../components/NewsCard.astro";
+import { news } from "../lib/content";
+import { assetUrl, routeUrl } from "../lib/urls";
+
+const recentNews = news.slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">University at Albany</p>
+        <h1>PLASMA</h1>
+        <p class="hero__expansion">
+          Plasma and Atomic Scale Processing for Material Applications
+        </p>
+        <p class="hero__intro">
+          Advancing material processing through plasma science and atomic-scale engineering.
+        </p>
+        <div class="button-row">
+          <a class="button button--primary" href={routeUrl("research")}>Explore our research</a>
+          <a class="button button--secondary" href={routeUrl("people")}>Meet the group</a>
+        </div>
+      </div>
+      <div class="hero__brand">
+        <img
+          src={assetUrl("/media/misc/logo_nobg.jpg")}
+          alt="PLASMA — Plasma and Atomic Scale Processing for Material Applications"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--news" aria-labelledby="latest-news">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Updates</p>
+          <h2 id="latest-news">Latest news</h2>
+        </div>
+        <a class="inline-link" href={routeUrl("news")}>All news</a>
+      </div>
+      {
+        recentNews.length > 0 ? (
+          <div class="news-grid">
+            {recentNews.map((article) => <NewsCard article={article} />)}
+          </div>
+        ) : (
+          <p class="empty-state">Updates from the PLASMA group will appear here.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

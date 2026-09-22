@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PaperList from "../components/PaperList.astro";
+import { papers } from "../lib/content";
+---
+
+<BaseLayout title="Publications">
+  <section class="page-hero">
+    <div class="container narrow-content">
+      <p class="eyebrow">Scholarly work</p>
+      <h1>Publications</h1>
+      <p>
+        Publications from the PLASMA group, ordered from most recent to earliest.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        papers.length > 0 ? (
+          <PaperList papers={papers} />
+        ) : (
+          <p class="empty-state">The group’s publications will appear here.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

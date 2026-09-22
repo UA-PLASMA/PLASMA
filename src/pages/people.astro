@@ -1,0 +1,45 @@
+---
+import MemberCard from "../components/MemberCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { members, type MemberPosition } from "../lib/content";
+
+const groups: Array<{ position: MemberPosition; heading: string }> = [
+  { position: "PI", heading: "Principal investigator" },
+  { position: "scientist", heading: "Scientists" },
+  { position: "postdoc", heading: "Postdoctoral researchers" },
+  { position: "graduate", heading: "Graduate students" },
+  { position: "undergraduate", heading: "Undergraduate students" },
+  { position: "alumni", heading: "Alumni" },
+];
+---
+
+<BaseLayout title="People">
+  <section class="page-hero">
+    <div class="container narrow-content">
+      <p class="eyebrow">Our group</p>
+      <h1>People</h1>
+      <p>Meet the researchers and students who make up the PLASMA group.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        groups.map((group) => {
+          const groupMembers = members.filter((member) => member.position === group.position);
+
+          return (
+            groupMembers.length > 0 && (
+              <section class="people-group" aria-labelledby={`people-${group.position}`}>
+                <h2 id={`people-${group.position}`}>{group.heading}</h2>
+                <div class="people-grid">
+                  {groupMembers.map((member) => <MemberCard member={member} />)}
+                </div>
+              </section>
+            )
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>

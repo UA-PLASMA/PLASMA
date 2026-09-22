@@ -1,0 +1,40 @@
+---
+import type { Paper } from "../lib/content";
+import { formatDate } from "../lib/format";
+import { assetUrl } from "../lib/urls";
+
+interface Props {
+  papers: Paper[];
+}
+
+const { papers } = Astro.props;
+---
+
+<ol class="paper-list">
+  {
+    papers.map((paper) => (
+      <li class="paper-list__item">
+        <div class:list={["paper-list__figure", { "paper-list__figure--blank": !paper.highlightImage }]}>
+          {
+            paper.highlightImage && (
+              <img src={assetUrl(paper.highlightImage)} alt="" loading="lazy" />
+            )
+          }
+        </div>
+        <div class="paper-list__content">
+          <p class="eyebrow">{formatDate(paper.date)} · {paper.journal}</p>
+          <h2>{paper.title}</h2>
+          <p class="paper-list__authors">
+            {paper.authors.map((author) => `${author.first} ${author.last}`).join(", ")}
+          </p>
+          <p class="paper-list__links">
+            <a class="inline-link" href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer">
+              View DOI
+            </a>
+            {paper.pdf && <a class="inline-link" href={assetUrl(paper.pdf)}>Download PDF</a>}
+          </p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import NewsCard from "../components/NewsCard.astro";
+import { news } from "../lib/content";
+---
+
+<BaseLayout title="News">
+  <section class="page-hero">
+    <div class="container narrow-content">
+      <p class="eyebrow">From PLASMA</p>
+      <h1>News</h1>
+      <p>Announcements, events, and milestones from the PLASMA group.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        news.length > 0 ? (
+          <div class="news-grid news-grid--all">
+            {news.map((article) => <NewsCard article={article} />)}
+          </div>
+        ) : (
+          <p class="empty-state">News from the group will appear here.</p>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

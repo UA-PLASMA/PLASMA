@@ -1,0 +1,61 @@
+---
+import { announcements } from "../lib/content";
+import "../styles/global.css";
+import AnnouncementBar from "../components/AnnouncementBar.astro";
+import Header from "../components/Header.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "PLASMA is the Plasma and Atomic Scale Processing for Material Applications research group at UAlbany.",
+} = Astro.props;
+const pageTitle = title
+  ? `${title} | PLASMA`
+  : "PLASMA | Plasma and Atomic Scale Processing for Material Applications";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      try {
+        const storedTheme = localStorage.getItem("plasma-theme");
+        const theme =
+          storedTheme === "light" || storedTheme === "dark"
+            ? storedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.dataset.theme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header />
+    <AnnouncementBar announcements={announcements} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <div>
+          <p class="site-footer__name">PLASMA</p>
+          <p>Plasma and Atomic Scale Processing for Material Applications</p>
+        </div>
+        <p>University at Albany</p>
+      </div>
+    </footer>
+  </body>
+</html>

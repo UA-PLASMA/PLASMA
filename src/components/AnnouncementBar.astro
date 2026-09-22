@@ -1,0 +1,81 @@
+---
+import type { Announcement } from "../lib/content";
+import { routeUrl } from "../lib/urls";
+
+interface Props {
+  announcements: Announcement[];
+}
+
+const { announcements } = Astro.props;
+
+function hrefFor(announcement: Announcement): string {
+  if (!announcement.link.internal) {
+    return announcement.link.url;
+  }
+
+  if (announcement.link.url === "home") {
+    return routeUrl();
+  }
+
+  if (announcement.link.url.startsWith("news/")) {
+    return routeUrl("news");
+  }
+
+  if (announcement.link.url.startsWith("papers/")) {
+    return routeUrl("publications");
+  }
+
+  return routeUrl(announcement.link.url);
+}
+---
+
+{
+  announcements.length > 0 && (
+    <section class="announcement-bar" aria-label="Announcements" data-announcement-bar hidden>
+      <div class="container">
+        {announcements.map((announcement) => (
+          <a
+            class="announcement-bar__item"
+            href={hrefFor(announcement)}
+            data-announcement
+            data-start={announcement.dates.start}
+            data-end={announcement.dates.end}
+            target={announcement.link.internal ? undefined : "_blank"}
+            rel={announcement.link.internal ? undefined : "noreferrer"}
+            hidden
+          >
+            <span>Announcement</span>
+            {announcement.text}
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<script>
+  const announcementBar = document.querySelector<HTMLElement>("[data-announcement-bar]");
+
+  function localDateFromIso(value: string): Date {
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  if (announcementBar) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let hasActiveAnnouncement = false;
+
+    announcementBar.querySelectorAll<HTMLElement>("[data-announcement]").forEach((announcement) => {
+      const start = localDateFromIso(announcement.dataset.start ?? "");
+      const end = localDateFromIso(announcement.dataset.end ?? "");
+      const isActive = today >= start && today <= end;
+
+      announcement.hidden = !isActive;
+      hasActiveAnnouncement ||= isActive;
+    });
+
+    announcementBar.hidden = !hasActiveAnnouncement;
+  }
+</script>
