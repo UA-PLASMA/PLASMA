@@ -347,7 +347,7 @@ h3 {
   opacity: 0.18;
 }
 
-.hero__brand img {
+.hero__logo {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -356,8 +356,17 @@ h3 {
   mix-blend-mode: multiply;
 }
 
-:root[data-theme="dark"] .hero__brand img {
-  mix-blend-mode: screen;
+.hero__logo--dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .hero__logo--light {
+  display: none;
+}
+
+:root[data-theme="dark"] .hero__logo--dark {
+  display: block;
+  mix-blend-mode: normal;
 }
 
 .button-row {
