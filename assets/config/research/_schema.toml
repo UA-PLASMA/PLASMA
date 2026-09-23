@@ -1,0 +1,16 @@
+# Used to generate research cards
+
+
+# The website will automatically use the image stored under assets/media/research/ for the highlight figure.
+# The image file should have the same name as the toml config file.
+# Example: asd.jpg <==> asd.toml
+# The image can be a jpg or png. Landscape images at 600px wide by 400px tall are recommended.
+
+title = ""
+description = """
+""" # Supports markdown
+
+# Duplicate this structure for each paper to highlight in this research area.
+# Existing paper entries link to their publication card; unknown paper entries are omitted.
+[[highlight]]
+card = "" # The name of a paper as stored under assets/config/papers/ (e.g. enzo_2026)

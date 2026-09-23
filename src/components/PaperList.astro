@@ -13,7 +13,7 @@ const { papers } = Astro.props;
 <ol class="paper-list">
   {
     papers.map((paper) => (
-      <li class="paper-list__item">
+      <li class="paper-list__item" id={`paper-${paper.slug}`}>
         <div class:list={["paper-list__figure", { "paper-list__figure--blank": !paper.highlightImage }]}>
           {
             paper.highlightImage && (

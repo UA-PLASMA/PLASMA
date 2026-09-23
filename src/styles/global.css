@@ -101,6 +101,16 @@ h3 {
   margin-inline: auto;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
 .narrow-content {
   max-width: 760px;
 }
@@ -520,34 +530,118 @@ h3 {
   margin-bottom: 0;
 }
 
-.research-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+.research-page {
+  padding-block: clamp(2rem, 5vw, 4.5rem);
 }
 
-.research-card {
-  min-height: 20rem;
-  padding: 2rem;
-  border-top: 0.35rem solid var(--orange);
+.research-list {
+  display: grid;
+  gap: clamp(2.5rem, 7vw, 6rem);
+}
+
+.research-topic {
+  display: grid;
+  grid-template-areas: "content image";
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.research-topic--image-left {
+  grid-template-areas: "image content";
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
+}
+
+.research-topic__content {
+  grid-area: content;
+}
+
+.research-topic__content h2 {
+  margin-bottom: 1rem;
+  color: var(--purple);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+}
+
+.research-topic__description {
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.research-topic__description > :last-child {
+  margin-bottom: 0;
+}
+
+.research-topic__image {
+  grid-area: image;
+  width: min(100%, 600px);
+  aspect-ratio: 3 / 2;
+  justify-self: end;
+  overflow: hidden;
   background: var(--surface-subtle);
 }
 
-.research-card:nth-child(2) {
-  border-top-color: var(--purple);
+.research-topic--image-left .research-topic__image {
+  justify-self: start;
 }
 
-.research-card:nth-child(3) {
-  border-top-color: var(--orange-soft);
+.research-topic__image img,
+.research-topic__placeholder {
+  width: 100%;
+  height: 100%;
 }
 
-.research-card h2 {
-  font-size: 2rem;
+.research-topic__image img {
+  display: block;
+  object-fit: cover;
 }
 
-.research-card p:last-child {
-  margin-bottom: 0;
+.research-topic__placeholder {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+    linear-gradient(45deg, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+    var(--surface-subtle);
   color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.research-topic__placeholder span {
+  padding: 0.4rem 0.65rem;
+  background: var(--surface-subtle);
+}
+
+.research-topic__highlights {
+  margin-top: 1.5rem;
+}
+
+.research-topic__highlights h3 {
+  margin-bottom: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.research-topic__highlights ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.research-topic__highlights a {
+  color: var(--purple);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+.research-topic__highlights a:hover,
+.research-topic__highlights a:focus-visible {
+  color: var(--orange);
 }
 
 .people-group + .people-group {
@@ -842,8 +936,7 @@ h3 {
 
   .news-grid,
   .news-grid--all,
-  .people-grid,
-  .research-grid {
+  .people-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -851,9 +944,6 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .research-card:last-child {
-    grid-column: span 2;
-  }
 }
 
 @media (max-width: 590px) {
@@ -890,8 +980,7 @@ h3 {
 
   .news-grid,
   .news-grid--all,
-  .people-grid,
-  .research-grid {
+  .people-grid {
     grid-template-columns: 1fr;
   }
 
@@ -904,8 +993,19 @@ h3 {
     width: min(100%, 13.5rem);
   }
 
-  .research-card:last-child {
-    grid-column: auto;
+  .research-topic,
+  .research-topic--image-left {
+    grid-template-areas:
+      "content"
+      "image";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .research-topic__image,
+  .research-topic--image-left .research-topic__image {
+    width: 100%;
+    justify-self: stretch;
   }
 
   .paper-list__item {

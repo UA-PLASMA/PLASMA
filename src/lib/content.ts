@@ -79,6 +79,14 @@ export interface Announcement {
   };
 }
 
+export interface ResearchArea {
+  slug: string;
+  title: string;
+  description: string;
+  highlights: Paper[];
+  image?: string;
+}
+
 type TomlRecord = Record<string, unknown>;
 
 function isRecord(value: unknown): value is TomlRecord {
@@ -334,6 +342,42 @@ function loadPapers(memberList: readonly Member[]): Paper[] {
     .sort((first, second) => second.date.localeCompare(first.date));
 }
 
+function loadResearch(paperList: readonly Paper[]): ResearchArea[] {
+  const papersBySlug = new Map(paperList.map((paper) => [paper.slug, paper]));
+
+  return getTomlEntries("research")
+    .map(({ slug, sourceName, value }) => {
+      const highlights = value.highlight;
+
+      if (highlights !== undefined && !Array.isArray(highlights)) {
+        throw new Error(`Expected "highlight" to be an array in ${sourceName}.`);
+      }
+
+      const referencedPapers = (highlights ?? []).flatMap((highlight, index) => {
+        if (!isRecord(highlight)) {
+          throw new Error(`Expected highlight ${index + 1} to be a table in ${sourceName}.`);
+        }
+
+        const paperSlug = getString(highlight, "card", sourceName);
+        const paper = papersBySlug.get(paperSlug ?? "");
+
+        return paper ? [paper] : [];
+      });
+
+      return {
+        slug,
+        title: getString(value, "title", sourceName) ?? "",
+        description: getString(value, "description", sourceName) ?? "",
+        highlights: referencedPapers,
+        image: findAsset("media/research", slug, ["jpg", "png"]),
+      };
+    })
+    .sort((first, second) =>
+      first.title.localeCompare(second.title, "en", { sensitivity: "base" }) ||
+      first.slug.localeCompare(second.slug),
+    );
+}
+
 function loadNews(): NewsArticle[] {
   return getTomlEntries("news")
     .map(({ slug, sourceName, value }) => ({
@@ -375,5 +419,6 @@ function loadAnnouncements(): Announcement[] {
 
 export const members = loadMembers();
 export const papers = loadPapers(members);
+export const researchAreas = loadResearch(papers);
 export const news = loadNews();
 export const announcements = loadAnnouncements();

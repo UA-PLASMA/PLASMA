@@ -1,47 +1,61 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { researchAreas } from "../lib/content";
+import { renderMarkdown } from "../lib/format";
+import { assetUrl, routeUrl } from "../lib/urls";
 ---
 
 <BaseLayout title="Research">
-  <section class="page-hero">
-    <div class="container narrow-content">
-      <p class="eyebrow">What we study</p>
-      <h1>Research</h1>
-      <p>
-        PLASMA investigates how plasma-based and atomic-scale processes can enable the
-        next generation of materials and devices.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
+  <section class="research-page">
     <div class="container">
-      <div class="research-grid">
-        <article class="research-card">
-          <p class="eyebrow">01</p>
-          <h2>Atomic-scale processing</h2>
-          <p>
-            Placeholder text for a concise description of the group’s work in atomic-scale
-            deposition, etching, and surface modification.
-          </p>
-        </article>
-        <article class="research-card">
-          <p class="eyebrow">02</p>
-          <h2>Plasma-enabled materials</h2>
-          <p>
-            Placeholder text for the group’s work using plasma processes to tailor materials,
-            interfaces, and manufacturing approaches.
-          </p>
-        </article>
-        <article class="research-card">
-          <p class="eyebrow">03</p>
-          <h2>Sustainable manufacturing</h2>
-          <p>
-            Placeholder text for research connecting precise processing methods with more
-            sustainable material and device fabrication.
-          </p>
-        </article>
-      </div>
+      <h1 class="visually-hidden">Research</h1>
+      {
+        researchAreas.length > 0 ? (
+          <div class="research-list">
+            {researchAreas.map((area, index) => (
+              <article
+                class:list={[
+                  "research-topic",
+                  { "research-topic--image-left": index % 2 === 1 },
+                ]}
+              >
+                <div class="research-topic__content">
+                  <h2>{area.title}</h2>
+                  <div
+                    class="research-topic__description rich-text"
+                    set:html={renderMarkdown(area.description)}
+                  />
+                  {area.highlights.length > 0 && (
+                    <div class="research-topic__highlights">
+                      <h3>Selected publications</h3>
+                      <ul>
+                        {area.highlights.map((paper) => (
+                          <li>
+                            <a href={routeUrl(`publications#paper-${paper.slug}`)}>
+                              {paper.title}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <div class="research-topic__image">
+                  {area.image ? (
+                    <img src={assetUrl(area.image)} alt="" loading="lazy" />
+                  ) : (
+                    <div class="research-topic__placeholder" aria-hidden="true">
+                      <span>Image coming soon</span>
+                    </div>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p class="empty-state">Research areas will be added here.</p>
+        )
+      }
     </div>
   </section>
 </BaseLayout>

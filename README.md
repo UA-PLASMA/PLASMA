@@ -22,6 +22,7 @@ All editable content lives in `assets/config/`:
 
 - `members/` for group members
 - `papers/` for publications
+- `research/` for research areas
 - `news/` for news items
 - `announcements/` for temporary site-wide notices
 
@@ -34,10 +35,13 @@ entry identifier. Matching media is optional and uses the same file name:
 - Member portraits: `assets/media/members/<entry-name>.jpg` or `.png`
 - Paper figures: `assets/media/papers/<entry-name>.jpg` or `.png`
 - Paper PDFs: `assets/files/papers/<entry-name>.pdf`
+- Research images: `assets/media/research/<entry-name>.jpg` or `.png` (600 × 400 recommended)
 - News media: `assets/media/news/<entry-name>.jpg`, `.png`, `.gif`, or `.mp4`
 
 Member portraits without an image use an initials-based neutral placeholder. Publications
-without a figure intentionally retain an empty figure area.
+without a figure intentionally retain an empty figure area. Research areas without an image
+use a neutral placeholder; valid highlighted paper references link to their publication
+entries. Research descriptions support Markdown formatting and links.
 
 Announcements are included in the static build and checked in the browser against their
 configured start and end dates. This lets notices expire automatically without requiring a
