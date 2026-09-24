@@ -1,5 +1,6 @@
 ---
 import type { Member } from "../lib/content";
+import { renderMarkdown } from "../lib/format";
 import { assetUrl } from "../lib/urls";
 
 interface Props {
@@ -71,8 +72,11 @@ const graduateProgram =
         </p>
       ) : null
     }
-    {showProfileBio && <p class="member-card__bio">{member.bio}</p>}
-    {showStudentOrAlumniBio && <p class="member-card__bio">{member.bio}</p>}
+    {
+      (showProfileBio || showStudentOrAlumniBio) && (
+        <div class="member-card__bio rich-text" set:html={renderMarkdown(member.bio)} />
+      )
+    }
     {
       (member.email || member.linkedin || member.orcid) && (
         <div class="member-card__social-links">

@@ -1,0 +1,16 @@
+title = ""
+bio = "Focused on improving the quality of NbN thin films deposited by PEALD."
+position = "masters"
+alumni = true
+join_year = 2024
+leave_year = 2025
+linkedin = "https://www.linkedin.com/in/william-grice-suny"
+
+[name]
+first = "William"
+last = "Grice"
+
+[highest_degree]
+degree = "M.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2025

@@ -8,7 +8,7 @@
 
 title = ""
 bio = """
-""" # Supports markdown
+""" # Supports Markdown; use \n in a basic string to force a line break.
 position = "" # One of "PI", "scientist", "postdoc", "phd", "masters", "undergraduate"
 alumni = false # Set to true when the member has left the group
 join_year = 0 # The year the member joined the lab; use 0 when unknown

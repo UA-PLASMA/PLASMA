@@ -9,7 +9,7 @@
 
 title = ""
 description = """
-""" # Supports markdown
+""" # Supports Markdown; use \n in a basic string to force a line break.
 order = 0
 
 # Duplicate this structure for each paper to highlight in this research area.

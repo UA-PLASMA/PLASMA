@@ -8,5 +8,5 @@
 
 title = ""
 body = """
-""" # Supports markdown
+""" # Supports Markdown; use \n in a basic string to force a line break.
 date = 2000-01-01 # Format: YYYY-MM-DD

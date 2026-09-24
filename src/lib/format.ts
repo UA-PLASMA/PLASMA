@@ -11,7 +11,7 @@ export function formatDate(date: string): string {
 }
 
 export function renderMarkdown(markdown: string): string {
-  return marked.parse(markdown, { async: false, gfm: true });
+  return marked.parse(markdown, { async: false, gfm: true, breaks: true });
 }
 
 export function toDisplayLabel(value: string): string {
