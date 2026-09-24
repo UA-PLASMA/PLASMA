@@ -1,0 +1,16 @@
+title = ""
+bio = "Focused on the developemnt of plasma etching processes for high-aspect ratio structures."
+position = "masters"
+alumni = true
+join_year = 2021
+leave_year = 2023
+linkedin = "https://www.linkedin.com/in/hailey-jenkins-rpi/"
+
+[name]
+first = "Hailey"
+last = "Jenkins"
+
+[highest_degree]
+degree = "M.S. Nanoscale Engineering"
+from = "SUNY Polytechnic Institute"
+year = 2023

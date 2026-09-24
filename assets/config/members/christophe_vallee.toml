@@ -1,5 +1,7 @@
 title = "Dr"
-bio = ""
+bio = """
+Christophe Vallée received his Ph.D. degree in physics from the University of Nantes, France, in 1999. He is currently a Professor at CNSE, University at Albany, USA. Up until September 2020, he was a Professor at Grenoble Alpes University (France) and a visiting Professor at Tsukuba University (Japan, 2016-2020). His research activity focuses on plasma and atomic scale processes. He has authored or coauthored more than 100 peer-reviewed publications.
+"""
 position = "PI"
 join_year = 0
 orcid = "0000-0002-9324-2345"

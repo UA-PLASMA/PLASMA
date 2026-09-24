@@ -1,0 +1,19 @@
+title = "Plasma Processing"
+description = """
+Our plasma processing research focuses on several deposition and etching techniques, including:
+* Reactive Ion Etching (RIE)
+* Plasma-enhanced Chemical Vapor Deposition (PECVD)
+* Cryogenic Etching
+* Plasma Modelling
+* etc
+"""
+order = 1
+
+[[highlight]]
+card = "rosanna_2025"
+
+[[highlight]]
+card = "christophe_sergey_2024"
+
+[[highlight]]
+card = "ivo_2024"

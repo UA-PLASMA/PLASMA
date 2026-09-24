@@ -1,0 +1,17 @@
+title = "Dr"
+bio = "Worked on the selective plasma etching of TaN."
+position = "phd"
+alumni = true
+join_year = 2021
+leave_year = 2026
+orcid = "0009-0006-1984-765X"
+linkedin = "https://www.linkedin.com/in/ivo-otto-iv-ph-d-44803612b/"
+
+[name]
+first = "Ivo"
+last = "Otto"
+
+[highest_degree]
+degree = "Ph.D. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2026

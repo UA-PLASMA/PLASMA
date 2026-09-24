@@ -38,6 +38,7 @@ export interface Member {
     year: number;
   };
   image?: string;
+  imageAiGenerated: boolean;
 }
 
 export interface PaperAuthor {
@@ -55,6 +56,7 @@ export interface Paper {
   etAl: boolean;
   authors: PaperAuthor[];
   highlightImage?: string;
+  highlightImageAiGenerated: boolean;
   pdf?: string;
 }
 
@@ -64,6 +66,7 @@ export interface NewsArticle {
   body: string;
   date: string;
   media?: string;
+  mediaAiGenerated: boolean;
 }
 
 export interface Announcement {
@@ -83,8 +86,15 @@ export interface ResearchArea {
   slug: string;
   title: string;
   description: string;
+  order: number;
   highlights: Paper[];
   image?: string;
+  imageAiGenerated: boolean;
+}
+
+interface ImageAsset {
+  path: string;
+  aiGenerated: boolean;
 }
 
 type TomlRecord = Record<string, unknown>;
@@ -127,6 +137,16 @@ function getNumber(source: TomlRecord, key: string, sourceName: string): number 
 
   if (typeof value !== "number") {
     throw new Error(`Expected "${key}" to be a number in ${sourceName}.`);
+  }
+
+  return value;
+}
+
+function getInteger(source: TomlRecord, key: string, sourceName: string): number {
+  const value = getNumber(source, key, sourceName);
+
+  if (!Number.isInteger(value)) {
+    throw new Error(`Expected "${key}" to be an integer in ${sourceName}.`);
   }
 
   return value;
@@ -227,6 +247,27 @@ function findAsset(
   return undefined;
 }
 
+function findImageAsset(
+  directory: string,
+  slug: string,
+  extensions: readonly string[],
+): ImageAsset | undefined {
+  for (const aiGenerated of [false, true]) {
+    for (const extension of extensions) {
+      const fileName = `${aiGenerated ? "ai_" : ""}${slug}.${extension}`;
+
+      if (existsSync(join(assetsRoot, directory, fileName))) {
+        return {
+          path: `/${directory}/${fileName}`,
+          aiGenerated,
+        };
+      }
+    }
+  }
+
+  return undefined;
+}
+
 function loadMembers(): Member[] {
   return getTomlEntries("members")
     .map(({ slug, sourceName, value }) => {
@@ -265,6 +306,8 @@ function loadMembers(): Member[] {
             };
           })();
 
+      const image = findImageAsset("media/members", slug, ["jpg", "png"]);
+
       return {
         slug,
         title: getString(value, "title", sourceName) ?? "",
@@ -281,7 +324,8 @@ function loadMembers(): Member[] {
           last: getString(name, "last", sourceName) ?? "",
         },
         highestDegree,
-        image: findAsset("media/members", slug, ["jpg", "png"]),
+        image: image?.path,
+        imageAiGenerated: image?.aiGenerated ?? false,
       };
     })
     .sort((first, second) => {
@@ -300,6 +344,8 @@ function loadPapers(memberList: readonly Member[]): Paper[] {
       if (!Array.isArray(authors)) {
         throw new Error(`Expected "authors" to be an array in ${sourceName}.`);
       }
+
+      const highlightImage = findImageAsset("media/papers", slug, ["jpg", "png"]);
 
       return {
         slug,
@@ -335,7 +381,8 @@ function loadPapers(memberList: readonly Member[]): Paper[] {
             card,
           };
         }),
-        highlightImage: findAsset("media/papers", slug, ["jpg", "png"]),
+        highlightImage: highlightImage?.path,
+        highlightImageAiGenerated: highlightImage?.aiGenerated ?? false,
         pdf: findAsset("files/papers", slug, ["pdf"]),
       };
     })
@@ -364,15 +411,20 @@ function loadResearch(paperList: readonly Paper[]): ResearchArea[] {
         return paper ? [paper] : [];
       });
 
+      const image = findImageAsset("media/research", slug, ["jpg", "png"]);
+
       return {
         slug,
         title: getString(value, "title", sourceName) ?? "",
         description: getString(value, "description", sourceName) ?? "",
+        order: getInteger(value, "order", sourceName),
         highlights: referencedPapers,
-        image: findAsset("media/research", slug, ["jpg", "png"]),
+        image: image?.path,
+        imageAiGenerated: image?.aiGenerated ?? false,
       };
     })
     .sort((first, second) =>
+      first.order - second.order ||
       first.title.localeCompare(second.title, "en", { sensitivity: "base" }) ||
       first.slug.localeCompare(second.slug),
     );
@@ -380,13 +432,18 @@ function loadResearch(paperList: readonly Paper[]): ResearchArea[] {
 
 function loadNews(): NewsArticle[] {
   return getTomlEntries("news")
-    .map(({ slug, sourceName, value }) => ({
-      slug,
-      title: getString(value, "title", sourceName) ?? "",
-      body: getString(value, "body", sourceName) ?? "",
-      date: getDate(value, "date", sourceName),
-      media: findAsset("media/news", slug, ["jpg", "png", "gif", "mp4"]),
-    }))
+    .map(({ slug, sourceName, value }) => {
+      const image = findImageAsset("media/news", slug, ["jpg", "png", "gif"]);
+
+      return {
+        slug,
+        title: getString(value, "title", sourceName) ?? "",
+        body: getString(value, "body", sourceName) ?? "",
+        date: getDate(value, "date", sourceName),
+        media: image?.path ?? findAsset("media/news", slug, ["mp4"]),
+        mediaAiGenerated: image?.aiGenerated ?? false,
+      };
+    })
     .sort((first, second) => second.date.localeCompare(first.date));
 }
 

@@ -1,0 +1,16 @@
+title = ""
+bio = "Focused on the plasma etching of silicon-based materials."
+position = "masters"
+alumni = true
+join_year = 2024
+leave_year = 2026
+linkedin = "https://www.linkedin.com/in/sackoriebailey/"
+
+[name]
+first = "Sackorie"
+last = "Bailey"
+
+[highest_degree]
+degree = "M.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2026

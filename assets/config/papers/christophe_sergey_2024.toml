@@ -1,0 +1,11 @@
+title = "50 Years of Reactive Ion Etching in Microelectronics"
+doi = "10.1109/TMAT.2024.3420822"
+journal = "IEEE Transactions on Materials for Electron Devices"
+date = 2024-07-01
+
+[[authors]]
+first = "Sergey"
+last = "Voronin"
+
+[[authors]]
+card = "christophe_vallee"

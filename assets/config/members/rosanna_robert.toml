@@ -1,0 +1,17 @@
+title = ""
+bio = "Developed a selective deposition process on MORs using PECVD."
+position = "masters"
+alumni = true
+join_year = 2021
+leave_year = 2023
+orcid = ""
+linkedin = "https://www.linkedin.com/in/rosanna-robert-335157216/"
+
+[name]
+first = "Rosanna"
+last = "Robert"
+
+[highest_degree]
+degree = "M.S. Nanoscale Engineering"
+from = "SUNY Albany"
+year = 2023

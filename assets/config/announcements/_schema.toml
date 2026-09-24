@@ -7,8 +7,8 @@ url = ""
 internal = false
 # Internal link structure:
 # "home" -> homepage
-# "news/article.toml" -> automatically generated page for the news article defined by assets/config/news/article.toml
-# "papers/paper.toml" -> DOI page for the paper defined by assets/config/papers/paper.toml
+# "news/article.toml" -> article card on the news page
+# "papers/paper.toml" -> publication card on the publications page
 
 [dates] # Format: YYYY-MM-DD
 start = 2000-01-01

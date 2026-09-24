@@ -418,6 +418,14 @@ h3 {
   background: var(--surface-subtle);
 }
 
+.paper-list__media {
+  width: 100%;
+}
+
+.paper-list__figure[href] {
+  width: 100%;
+}
+
 .section {
   padding-block: clamp(4rem, 8vw, 7rem);
 }
@@ -476,7 +484,7 @@ h3 {
 }
 
 .news-grid--all {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .news-card {
@@ -488,19 +496,26 @@ h3 {
 }
 
 .news-card__media {
+  display: block;
+  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+}
+
+.news-card__media--placeholder {
   display: grid;
   min-height: 11rem;
   aspect-ratio: 1.65;
   place-items: center;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+}
+
+.news-card__media-label {
+  padding-inline: 1rem;
 }
 
 .news-card__media img,
 .news-card__media video {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
 .news-card__placeholder {
@@ -573,27 +588,43 @@ h3 {
 }
 
 .research-topic__image {
-  grid-area: image;
+  display: block;
   width: min(100%, 600px);
-  aspect-ratio: 3 / 2;
-  justify-self: end;
-  overflow: hidden;
   background: var(--surface-subtle);
 }
 
-.research-topic--image-left .research-topic__image {
-  justify-self: start;
+.research-topic__media {
+  grid-area: image;
+  width: min(100%, 600px);
+  justify-self: end;
 }
 
-.research-topic__image img,
-.research-topic__placeholder {
+.research-topic__media .research-topic__image {
   width: 100%;
-  height: 100%;
+}
+
+.research-topic__image[href] {
+  cursor: zoom-in;
+}
+
+.research-topic__image[href]:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+
+.research-topic--image-left .research-topic__media {
+  justify-self: start;
 }
 
 .research-topic__image img {
   display: block;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.research-topic__placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 2;
 }
 
 .research-topic__placeholder {
@@ -635,6 +666,7 @@ h3 {
 
 .research-topic__highlights a {
   color: var(--purple);
+  font-size: 0.875rem;
   font-weight: 700;
   text-underline-offset: 0.2em;
 }
@@ -642,6 +674,13 @@ h3 {
 .research-topic__highlights a:hover,
 .research-topic__highlights a:focus-visible {
   color: var(--orange);
+}
+
+.image-generated-label {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.3;
 }
 
 .people-group + .people-group {
@@ -691,6 +730,19 @@ h3 {
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background: linear-gradient(135deg, #d8d3dd, #b6afba);
+}
+
+.member-card__media {
+  width: 100%;
+}
+
+.member-card__media .image-generated-label {
+  width: 80%;
+  margin: 0.4rem auto 0;
+}
+
+.member-card--profile .member-card__media .image-generated-label {
+  width: 100%;
 }
 
 :root[data-theme="dark"] .member-card__portrait {
@@ -749,6 +801,11 @@ h3 {
   font-weight: 700;
 }
 
+.member-card__bio {
+  color: var(--muted);
+  text-align: justify;
+}
+
 .member-card__degree {
   color: var(--muted);
   font-size: 0.9rem;
@@ -775,6 +832,14 @@ h3 {
   width: auto;
   height: 1.6em;
   transition: transform 160ms ease;
+}
+
+.member-card__email-icon {
+  filter: invert(1);
+}
+
+:root[data-theme="dark"] .member-card__email-icon {
+  filter: none;
 }
 
 .member-card__social-icon:hover img,
@@ -827,15 +892,26 @@ h3 {
 .paper-list__item {
   display: grid;
   grid-template-columns: minmax(10rem, 16rem) minmax(0, 1fr);
+  align-items: center;
   gap: 1.5rem;
   padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--line);
 }
 
 .paper-list__figure {
+  display: block;
   aspect-ratio: 1.6;
   overflow: hidden;
   background: var(--surface-subtle);
+}
+
+.paper-list__figure[href] {
+  cursor: zoom-in;
+}
+
+.paper-list__figure[href]:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
 }
 
 .paper-list__figure--blank {
@@ -1003,7 +1079,8 @@ h3 {
   }
 
   .research-topic__image,
-  .research-topic--image-left .research-topic__image {
+  .research-topic__media,
+  .research-topic--image-left .research-topic__media {
     width: 100%;
     justify-self: stretch;
   }
@@ -1012,6 +1089,7 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .paper-list__media,
   .paper-list__figure {
     max-width: 20rem;
   }

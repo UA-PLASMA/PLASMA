@@ -1,0 +1,14 @@
+title = ""
+bio = "Focuses on using Langmuir probes for plasma characterization."
+position = "masters"
+join_year = 2026
+email = "bbox@albany.edu"
+
+[name]
+first = "Brayden"
+last = "Box"
+
+[highest_degree]
+degree = "B.S. Systems Engineering"
+from = "SUNY Albany"
+year = 2024

@@ -1,5 +1,8 @@
 title = "Dr"
-bio = ""
+bio = """
+Following my PhD in plasma physics in France, which focused on multiscale modelling of GaN atomic layer etching in chlorinated plasmas, I joined the PLASMA group as a postdoctoral fellow.
+My work focuses on developing digital coupling between models and experiments for near-real-time investigations and monitoring of plasma processes, alongside plasma and plasma/surface investigations for atomic-scale processes.
+"""
 position = "postdoc"
 join_year = 2026
 email = "trasoanarivo@albany.edu"

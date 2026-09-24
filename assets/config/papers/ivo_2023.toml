@@ -1,0 +1,18 @@
+title = "Investigation into the effect of a PECVD-deposited SiOx chamber coating on the selective, radical-based NF3 etching of TaN with respect to BEOL low-k"
+doi = "10.1116/6.0002533"
+journal = "JVST-B"
+date = 2023-04-17
+
+[[authors]]
+card = "ivo_otto"
+
+[[authors]]
+card = "christophe_vallee"
+
+[[authors]]
+first = "Subhadeep"
+last = "Kal"
+
+[[authors]]
+first = "Peter"
+last = "Biolsi"

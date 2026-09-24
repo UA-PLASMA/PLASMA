@@ -1,9 +1,0 @@
-text = "The website is now live!"
-
-[link]
-url = "home"
-internal = true
-
-[dates]
-start = 2026-09-17
-end = 2027-01-01

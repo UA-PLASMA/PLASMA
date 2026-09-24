@@ -18,11 +18,13 @@ function hrefFor(announcement: Announcement): string {
   }
 
   if (announcement.link.url.startsWith("news/")) {
-    return routeUrl("news");
+    const slug = announcement.link.url.slice("news/".length).replace(/\.toml$/, "");
+    return routeUrl(`news#news-${slug}`);
   }
 
   if (announcement.link.url.startsWith("papers/")) {
-    return routeUrl("publications");
+    const slug = announcement.link.url.slice("papers/".length).replace(/\.toml$/, "");
+    return routeUrl(`publications#paper-${slug}`);
   }
 
   return routeUrl(announcement.link.url);

@@ -2,9 +2,13 @@ title = "Area Selective Deposition"
 description = """
 Area selective deposition is an advanced deposition technique which allows for the deposition of thin films on targeted surfaces.
 """
+order = 3
 
 [[highlight]]
 card = "enzo_2026"
 
 [[highlight]]
 card = "nicolas_2026"
+
+[[highlight]]
+card = "anthony_2026"
