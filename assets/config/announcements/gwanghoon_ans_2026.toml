@@ -1,0 +1,9 @@
+text = "Don't miss Gwanghoon's poster at the Albany Nanotech Symposium 2026!"
+
+[link]
+url = "news/gwanghoon_ans_2026"
+internal = true
+
+[dates]
+start = 2026-08-27
+end = 2026-10-23

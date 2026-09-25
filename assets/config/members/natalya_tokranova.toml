@@ -1,5 +1,9 @@
 title = "Dr"
-bio = ""
+bio = """
+Natalya Tokranova earned her M.S. degree in Optoelectronics from Saint Petersburg State Electrotechnical University and her Ph.D. in Semiconductor Physics from the Ioffe Institute of the Russian Academy of Sciences.
+She conducted research at the Ioffe Institute until 2000, when she relocated to the United States and joined the College of Nanoscale Science and Engineering (CNSE) at the University at Albany, SUNY, as a Research Scientist.
+Her expertise spans semiconductor process development, device design, fabrication, and characterization, with a particular focus on silicon-based technologies and devices.
+"""
 position = "scientist"
 join_year = 0
 orcid = "0009-0005-0778-4615"
