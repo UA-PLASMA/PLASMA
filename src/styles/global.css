@@ -274,6 +274,11 @@ h3 {
   color: #fff;
 }
 
+.announcement-bar[hidden],
+.announcement-bar__item[hidden] {
+  display: none !important;
+}
+
 .announcement-bar__item {
   display: flex;
   align-items: center;

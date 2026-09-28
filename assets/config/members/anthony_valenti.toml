@@ -1,5 +1,10 @@
 title = "Dr"
-bio = ""
+bio = """
+Anthony J. Valenti received his Ph.D. in Nanoscale Science at the University at Albany in August of 2026.
+His doctoral research focused on the characterization and evaluation of small molecule inhibitor-passivated SiO2 surfaces for area-selective atomic layer deposition (AS-ALD) processes.
+As a post-doctoral fellow, his research primarily centers on the characterization of n-type and p-type oxide semiconductors and developing innovative ALD and AS-ALD processes to fabricate such materials with high mobility and stability for applications in three-dimensional thin film transistor (3D-TFT) devices.
+He specializes in surface metrology techniques, with particular expertise in X-ray photoelectron spectroscopy (XPS).
+"""
 position = "postdoc"
 join_year = 2026
 email = "ajvalenti@albany.edu"
