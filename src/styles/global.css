@@ -502,7 +502,7 @@ h3 {
 
 .news-card__media {
   display: block;
-  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
+  background: #fff;
 }
 
 .news-card__media--placeholder {
@@ -510,6 +510,7 @@ h3 {
   min-height: 11rem;
   aspect-ratio: 1.65;
   place-items: center;
+  background: linear-gradient(135deg, var(--purple-deep), var(--purple));
 }
 
 .news-card__media-label {
